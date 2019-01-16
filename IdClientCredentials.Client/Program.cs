@@ -1,10 +1,11 @@
-﻿using System;
+﻿using IdentityModel.Client;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using IdentityModel.Client;
+using IdentityModel;
 using Newtonsoft.Json.Linq;
 
-namespace Id4Client.ResourceOwner
+namespace IdClientCredentials.Client
 {
     class Program
     {
@@ -17,22 +18,21 @@ namespace Id4Client.ResourceOwner
         static async Task MainAsync(string[] args)
         {
             var client = new HttpClient();
-            var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
+            var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = "http://localhost:5000/connect/token",
-                ClientId = "ro.client",
+                ClientId = "cc.client",
                 ClientSecret = "secret",
                 Parameters =
                 {
                     { "scope", "api1" }
-                },
-                UserName = "alice",
-                Password = "password"
+                }
             });
             
             if (tokenResponse.IsError)
             {
-                throw new Exception(tokenResponse.Error);
+                Console.WriteLine(tokenResponse.Error);
+                return;
             }
 
             Console.WriteLine(tokenResponse.Json);
