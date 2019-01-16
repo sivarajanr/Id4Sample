@@ -1,4 +1,20 @@
 
-"C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\makecert.exe" -r -pe -n "CN=MyCertificate" -ss CA -sr CurrentUser -a sha1 -sky signature -cy authority -sv CA.pvk CA.cer
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\makecert.exe" -r -pe -n "CN=MyCertificate" -ss CA -sr CurrentUser -a RsaSha512 -sky signature -cy authority -sv CA.pvk CA.cer
 
 "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\pvk2pfx.exe" -spc CA.cer -pvk CA.pvk -pfx CA.pfx
+
+
+
+Related Links
+https://alexbilbie.com/guide-to-oauth-2-grants/
+https://blogs.msdn.microsoft.com/webdev/2017/01/23/asp-net-core-authentication-with-identityserver4/
+http://docs.identityserver.io/en/release/quickstarts/0_overview.html
+https://identitymodel.readthedocs.io/en/latest/index.html
+https://stackoverflow.com/questions/49686262/identityserver-client-authentication-with-public-private-keys-instead-of-shared
+
+
+Generating and Installing Signing-Certificates for Identity Server
+http://amilspage.com/signing-certificates-idsv4/
+
+MakeCert
+https://docs.microsoft.com/en-us/windows/desktop/SecCrypto/makecert

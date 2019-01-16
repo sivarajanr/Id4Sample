@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using IdentityModel;
 using Newtonsoft.Json.Linq;
 
-namespace IdClientCredentials.Client
+namespace IdClient.ClientCredentials
 {
     class Program
     {
