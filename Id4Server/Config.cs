@@ -39,7 +39,7 @@ namespace Id4Server
 
                     // scopes that client has access to
                     AllowedScopes = { "api1" },
-                    AllowOfflineAccess =  true
+                    //AllowOfflineAccess =  true
                     
                 },
                 new Client

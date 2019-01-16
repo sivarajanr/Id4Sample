@@ -24,7 +24,52 @@ namespace Id4Client.ClientCredentialsWithX509Certificate
 
         static async Task MainAsync(string[] args)
         {
-            var token = GenerateToken();
+
+            var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
+            var cert = new X509Certificate2(certPath);
+
+            var tokenUrl = "http://localhost:5000/connect/token";
+            var clientId = "cc.client1";
+
+            var now = DateTime.Now;
+            var token = new JwtSecurityToken(
+                clientId,
+                tokenUrl,
+                new List<Claim>
+                {
+                    new Claim("jti", Guid.NewGuid().ToString()),
+                    new Claim(JwtClaimTypes.Subject, clientId),
+                    new Claim(JwtClaimTypes.IssuedAt, now.ToEpochTime().ToString(), ClaimValueTypes.Integer64)
+                },
+                now,
+                now.AddMinutes(1),
+                new SigningCredentials(
+                    new X509SecurityKey(cert),
+                    SecurityAlgorithms.RsaSha512
+                )
+            );
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenString = tokenHandler.WriteToken(token);
+
+            // We can't use OpenId and offlice_access scope in Client_Credential Authentication
+            var requestBody = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"client_id", clientId},
+                {"client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"},
+                {"client_assertion", tokenString},
+                {"grant_type", "client_credentials"},
+                {"scope", "api1"}
+            });
+            var httpClient = new HttpClient();
+            var mResponse = await httpClient.PostAsync(tokenUrl, requestBody);
+            var tokenResponse = new TokenResponse(await mResponse.Content.ReadAsStringAsync());
+            if (tokenResponse.IsError)
+            {
+                Console.WriteLine(tokenResponse.Error);
+                //return;
+            }
+
+
 
 
 
@@ -85,7 +130,7 @@ namespace Id4Client.ClientCredentialsWithX509Certificate
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Expires = now.AddMinutes(Convert.ToInt32(1)),
-                SigningCredentials = new SigningCredentials(privateKey, SecurityAlgorithms.Sha256)
+                SigningCredentials = new SigningCredentials(privateKey, SecurityAlgorithms.RsaSha512)
             };
             JwtSecurityToken stoken = (JwtSecurityToken) tokenHandler.CreateToken(tokenDescriptor);
             string token = tokenHandler.WriteToken(stoken);
