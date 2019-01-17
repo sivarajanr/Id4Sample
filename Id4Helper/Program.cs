@@ -22,7 +22,7 @@ namespace Id4Helper
             var builder = new StringBuilder();
 
             builder.AppendLine("-----BEGIN CERTIFICATE-----");
-            builder.AppendLine(Convert.ToBase64String(cert.Export(X509ContentType.Cert), Base64FormattingOptions.InsertLineBreaks));
+            builder.AppendLine(Convert.ToBase64String(cert.Export(X509ContentType.Cert), Base64FormattingOptions.None));
             builder.AppendLine("-----END CERTIFICATE-----");
 
             return builder.ToString();

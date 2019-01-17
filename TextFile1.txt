@@ -1,5 +1,5 @@
 
-"C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\makecert.exe" -r -pe -n "CN=MyCertificate" -ss CA -sr CurrentUser -a RsaSha512 -sky signature -cy authority -sv CA.pvk CA.cer
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\makecert.exe" -r -pe -n "CN=MyCertificate" -ss CA -sr CurrentUser -a Sha512 -sky signature -cy authority -sv CA.pvk CA.cer
 
 "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\pvk2pfx.exe" -spc CA.cer -pvk CA.pvk -pfx CA.pfx
 
@@ -18,3 +18,6 @@ http://amilspage.com/signing-certificates-idsv4/
 
 MakeCert
 https://docs.microsoft.com/en-us/windows/desktop/SecCrypto/makecert
+
+
+https://identityserver.github.io/Documentation/docsv2/advanced/clientCerts.html

@@ -25,7 +25,7 @@ namespace Id4Client.ClientCredentialsWithX509Certificate
         static async Task MainAsync(string[] args)
         {
 
-            var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
+            /*var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
             var cert = new X509Certificate2(certPath);
 
             var tokenUrl = "http://localhost:5000/connect/token";
@@ -67,13 +67,13 @@ namespace Id4Client.ClientCredentialsWithX509Certificate
             {
                 Console.WriteLine(tokenResponse.Error);
                 //return;
-            }
+            }*/
 
 
 
 
 
-            /*var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
+            var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
             var cert = new X509Certificate2(certPath);
             var handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cert);
@@ -115,7 +115,7 @@ namespace Id4Client.ClientCredentialsWithX509Certificate
                 var content = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(JArray.Parse(content));
             }
-            */
+           
 
 
 
