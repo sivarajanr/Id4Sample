@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdClient.ClientCredentials", "IdClientCredentials.Client\IdClient.ClientCredentials.csproj", "{7EB49C51-6C3F-4C5B-8349-6DED56821141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Id4Client.ClientCredentialsWithX509Certificate", "Id4Client.ClientCredentialsWithx509Certificate\Id4Client.ClientCredentialsWithX509Certificate.csproj", "{24DB0455-E85A-4711-9BCE-241C53937CAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Id4Client.ClientCredentialsWithX509Certificate", "Id4Client.ClientCredentialsWithx509Certificate\Id4Client.ClientCredentialsWithX509Certificate.csproj", "{24DB0455-E85A-4711-9BCE-241C53937CAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Id4Helper", "Id4Helper\Id4Helper.csproj", "{3DD74647-73C6-460B-9065-1F672516A327}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Id4Helper", "Id4Helper\Id4Helper.csproj", "{3DD74647-73C6-460B-9065-1F672516A327}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

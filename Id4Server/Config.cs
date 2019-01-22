@@ -33,10 +33,10 @@ namespace Id4Server
                         new Secret
                         {
                             Type = IdentityServerConstants.SecretTypes.X509CertificateBase64,
-                            Value = "MIIDGDCCAgCgAwIBAgIQkfdY4CvfHaJKR5EtFelrRDANBgkqhkiG9w0BAQ0FADAYMRYwFAYDVQQDEw1NeUNlcnRpZmljYXRlMB4XDTE5MDExNjIyMjQ1MFoXDTM5MTIzMTIzNTk1OVowGDEWMBQGA1UEAxMNTXlDZXJ0aWZpY2F0ZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKvqKdDxcfMRXLgDrYPMjO/hr5gOiRwdrQ0PYzu26mHVZr5N2LraeQbm5w9ARAhndu9A5M2oL22CugXkI+up3PY1VVs5MlHOzLebu4hYC3qVyKhLZIAxeZz+wa1y6e/tS5y8la48as/IiYSR6GVEM9MERbkpza8GgJdDhz2DpG1uMklXjZAZ7uXeOESQndC8kxrBuV5lSm/PUzqRZTzSTBZI5TXCE9UqqDS28t0MRHW22jODWc8ksGZOS9pxWJUtdR0dlVj2dyDnSmBjhtbHGxNXXzSg/ZQqS+qba1apw6oRxjjEqd3st8+Kn5axD2Fz0RiY3OLFHK4ggEeEzRYcM50CAwEAAaNeMFwwDwYDVR0TAQH/BAUwAwEB/zBJBgNVHQEEQjBAgBA9FOROXMIuTKzyx9Q/nbecoRowGDEWMBQGA1UEAxMNTXlDZXJ0aWZpY2F0ZYIQkfdY4CvfHaJKR5EtFelrRDANBgkqhkiG9w0BAQ0FAAOCAQEAnpDdk/OhGh9r6xYJq0ch37UKU0R6DH8usNqZU5n/vnvkxvHyXp/k9WRExFul+fSydGzU+3Jva40NAi/w06iwvMrY1X2hNprvbqtyZILr9pvIBmHNAlDdX+4JEsrcV3BJmsPMJ8Uw3Y+ZaljTi0d01wHQk7q23ja0g7Xnq5w/j7MPe1agcSNBpmWPS2wFHRxvbw55BFlRBZWjiHQ7y3yKjjvWy5igdRmfzkUMqzJW4kC2tJUW2M8uCI+FLSic/U0KySlxopq2EhA2I9MXdYXtelVVBG2LsOU7kse/U9q/GtKKyN6APYB2XBebjjeXpGngMxBet36iJ8mVnJJQ8rquaw=="
+                            Value = "MIIDGDCCAgCgAwIBAgIQy3SHsm/3iIlBA3fWt289dTANBgkqhkiG9w0BAQ0FADAYMRYwFAYDVQQD\r\nEw1NeUNlcnRpZmljYXRlMB4XDTE5MDExODA3MTY0OVoXDTM5MTIzMTIzNTk1OVowGDEWMBQGA1UE\r\nAxMNTXlDZXJ0aWZpY2F0ZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANhy6pFyapki\r\nWc96UfpSL6pqoLE2cQW7nW8wi3B+YTCO+neBmWWXvZEbvhUM6goTuQOta1vHcGBb/61ByGbpmFkA\r\noTiLyPBBjMbk1jixXVuf/LNZlLznC9EmCSOVtFKDq4xqNz23T4eRI/S+hIwyJEkLHyvwydda7Jgg\r\nZOPe+gYIY9VLxCWWjY1lnt0/jbHBVazumRI0Pwmd5p9ZloyTOV+RQuHVThFVpbppIu9LGU/MeIe0\r\n6DbSQddSdVyor+T6aXI9axHfCEI/N6U0EUrTaRGYTXXhxaWQsnQu6Qq6ZAzjAEzla9jSdHQyxRrw\r\nf3OgYOv+Doh8jjGXula+Y1X8FEUCAwEAAaNeMFwwDwYDVR0TAQH/BAUwAwEB/zBJBgNVHQEEQjBA\r\ngBAYhaOEzWCKUa8RIJIdwedSoRowGDEWMBQGA1UEAxMNTXlDZXJ0aWZpY2F0ZYIQy3SHsm/3iIlB\r\nA3fWt289dTANBgkqhkiG9w0BAQ0FAAOCAQEALsEvhO9l7bo7pasYfCWi7VDGsaxp189z/wkEmRT2\r\nBI7B9ibQwRar2g28npDZBnKIrTS8Q1HlIg1o8O2WJQxdnGYIgWhVSqri9mLUsGN1cIZ2KP9jjfuF\r\nbFRt9h6j38VpJovNwiRlLgEHioM2aCathjJJ/5obJB8a3d2iha076raCZGiGc6fbEgF8wJeJFBLj\r\nUecPpK7Wxtp7bj1oDXaAJ2YXPnobFk0y7r25uruXE7MhRGq8UfkI9ST4lGqsyd5Qs/17NuK8hK4e\r\nN06O52edwNTeBGMvDkY9kILTmpO+xxc8T+3vyNI4ESxmbRnYRmThT12y0JgWGEzySquUWKGj6Q==" // Make Cert Base64
                         }
                     },
-
+                    
                     // scopes that client has access to
                     AllowedScopes = { "api1" },
                     //AllowOfflineAccess =  true
@@ -45,7 +45,7 @@ namespace Id4Server
                 new Client
                 {
                     ClientId = "ro.client",
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())

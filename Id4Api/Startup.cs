@@ -32,7 +32,7 @@ namespace Id4Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
 
-            var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.cer");
+            var certPath = Path.Combine(@"cert\CA.cer");
             var cert = new X509Certificate2(certPath);
             
             services.AddAuthentication(o =>
@@ -54,20 +54,6 @@ namespace Id4Api
                         IssuerSigningKey = new X509SecurityKey(cert)
                     };
                 });
-
-
-            /*services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.Authority = "http://localhost:5000";
-                    options.RequireHttpsMetadata = false;
-
-                    options.ApiName = "api1";
-                });*/
-
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

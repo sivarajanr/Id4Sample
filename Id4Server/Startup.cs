@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Id4Server.Utility;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +21,9 @@ namespace Id4Server
         public void ConfigureServices(IServiceCollection services)
         {
 
-            var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
+            //var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
+            //var certPath = Path.Combine(@"C:\Users\Manoj TS\Desktop\Certificates\makecert\CA.pfx");
+            var certPath = Path.Combine(@"cert\CA.pfx");
             var cert = new X509Certificate2(certPath);
 
             services.AddIdentityServer()
@@ -28,9 +31,7 @@ namespace Id4Server
                 .AddSigningCredential(cert)
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
-                .AddTestUsers(Config.GetUsers())
-                .AddSecretParser<JwtBearerClientAssertionSecretParser>()
-                .AddSecretValidator<PrivateKeyJwtSecretValidator>();
+                .AddJwtBearerClientAuthentication();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

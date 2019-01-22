@@ -23,76 +23,22 @@ namespace Id4Client.ClientCredentialsWithX509Certificate
         }
 
         static async Task MainAsync(string[] args)
-        {
-
-            /*var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
-            var cert = new X509Certificate2(certPath);
-
-            var tokenUrl = "http://localhost:5000/connect/token";
-            var clientId = "cc.client1";
-
-            var now = DateTime.Now;
-            var token = new JwtSecurityToken(
-                clientId,
-                tokenUrl,
-                new List<Claim>
-                {
-                    new Claim("jti", Guid.NewGuid().ToString()),
-                    new Claim(JwtClaimTypes.Subject, clientId),
-                    new Claim(JwtClaimTypes.IssuedAt, now.ToEpochTime().ToString(), ClaimValueTypes.Integer64)
-                },
-                now,
-                now.AddMinutes(1),
-                new SigningCredentials(
-                    new X509SecurityKey(cert),
-                    SecurityAlgorithms.RsaSha512
-                )
-            );
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenString = tokenHandler.WriteToken(token);
-
-            // We can't use OpenId and offlice_access scope in Client_Credential Authentication
-            var requestBody = new FormUrlEncodedContent(new Dictionary<string, string>
-            {
-                {"client_id", clientId},
-                {"client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"},
-                {"client_assertion", tokenString},
-                {"grant_type", "client_credentials"},
-                {"scope", "api1"}
-            });
-            var httpClient = new HttpClient();
-            var mResponse = await httpClient.PostAsync(tokenUrl, requestBody);
-            var tokenResponse = new TokenResponse(await mResponse.Content.ReadAsStringAsync());
-            if (tokenResponse.IsError)
-            {
-                Console.WriteLine(tokenResponse.Error);
-                //return;
-            }*/
-
-
-
-
-
-            var certPath = Path.Combine(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
-            var cert = new X509Certificate2(certPath);
-            var handler = new HttpClientHandler();
-            handler.ClientCertificates.Add(cert);
-            var client = new HttpClient(handler);
+        {   
+            var client = new HttpClient();
             var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = "http://localhost:5000/connect/token",
+                GrantType = OidcConstants.GrantTypes.ClientCredentials,
                 ClientId = "cc.client1",
-                Parameters =
+                Scope = "api1",
+
+                ClientAssertion = new ClientAssertion
                 {
-                    {"scope", "api1"}
+                    Type = OidcConstants.ClientAssertionTypes.JwtBearer,
+                    Value = CreateClientAuthJwt()
                 }
             });
-
             
-
-
-
-
             if (tokenResponse.IsError)
             {
                 Console.WriteLine(tokenResponse.Error);
@@ -115,27 +61,28 @@ namespace Id4Client.ClientCredentialsWithX509Certificate
                 var content = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(JArray.Parse(content));
             }
-           
-
-
-
         }
+        
 
-        public static string GenerateToken()
+        private static string CreateClientAuthJwt()
         {
-            X509Certificate2 signingCert = new X509Certificate2(@"C:\siva\samples\Id4Sample\Cert\CA.pfx");
-            X509SecurityKey privateKey = new X509SecurityKey(signingCert);
-            var now = DateTime.UtcNow;
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Expires = now.AddMinutes(Convert.ToInt32(1)),
-                SigningCredentials = new SigningCredentials(privateKey, SecurityAlgorithms.RsaSha512)
-            };
-            JwtSecurityToken stoken = (JwtSecurityToken) tokenHandler.CreateToken(tokenDescriptor);
-            string token = tokenHandler.WriteToken(stoken);
-            return token;
+            // set exp to 5 minutes
+            var tokenHandler = new JwtSecurityTokenHandler { TokenLifetimeInMinutes = 5 };
+            var certPath = @"..\..\..\cert\CA.pfx";
+            var securityToken = tokenHandler.CreateJwtSecurityToken(
+                // iss must be the client_id of our application
+                issuer: "cc.client1",
+                // aud must be the identity provider (token endpoint)
+                audience: "http://localhost:5000/connect/token",
+                // sub must be the client_id of our application
+                subject: new ClaimsIdentity(
+                    new List<Claim> { new Claim("sub", "cc.client1") }),
+                // sign with the private key (using RS256 for IdentityServer)
+                signingCredentials: new SigningCredentials(
+                    new X509SecurityKey(new X509Certificate2(certPath)), "RS256")
+            );
 
+            return tokenHandler.WriteToken(securityToken);
         }
     }
 }
